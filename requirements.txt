@@ -3,6 +3,7 @@ pandas
 fastapi
 uvicorn
 scikit-learn
+python-multipart
 numpy
 setuptools
 wheel
