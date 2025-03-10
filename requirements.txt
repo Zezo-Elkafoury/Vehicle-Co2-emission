@@ -12,7 +12,7 @@ fsspec==2024.6.1
 future==0.18.2
 
 gevent==21.12.0
-greenlet==1.1.0
+
 grpcio==1.70.0
 grpcio-status==1.67.1
 gTTS==2.2.4
