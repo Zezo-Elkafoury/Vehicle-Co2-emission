@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pickle
 import pandas as pd
@@ -13,6 +14,15 @@ with open("preprocessor.pkl", "rb") as f:
 # Initialize FastAPI app
 app = FastAPI()
 
+# CORS Configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (for testing; restrict in production)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows POST, GET, etc.
+    allow_headers=["*"],  # Allows all headers
+)
+
 # Define the request model
 class Features(BaseModel):
     Make: str
@@ -25,6 +35,7 @@ class Features(BaseModel):
     Fuel_Consumption_Hwy: float
     Fuel_Consumption_Comb: float
 
+# Emission reduction tips function
 def get_reduction_tips(data: Features):
     tips = []
 
@@ -83,3 +94,7 @@ def predict(data: Features):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# Run the application (for local testing)
+# Use this command to start the server:
+# uvicorn main:app --host 0.0.0.0 --port 8000 --reload
